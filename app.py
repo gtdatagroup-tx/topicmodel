@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
-from bertopic import BERTopic
 from sentence_transformers import SentenceTransformer
+from bertopic import BERTopic
 
 app = Flask(__name__)
+
+# Use a lightweight model for testing
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 topic_model = BERTopic(embedding_model=embedding_model)
 
@@ -16,7 +18,7 @@ def model():
         if not utterances or not isinstance(utterances, list):
             return jsonify({"error": "utterances must be a non-empty list."}), 400
 
-        # Remove blank or invalid entries
+        # Clean and filter input
         utterances = [u.strip() for u in utterances if isinstance(u, str) and u.strip()]
         if not utterances:
             return jsonify({"error": "No valid utterances provided."}), 400
@@ -27,5 +29,7 @@ def model():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    if __name__ == "__main__":
-        app.run(host="0.0.0.0", port=8000)
+
+# 🔥 THIS IS ESSENTIAL
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000)
