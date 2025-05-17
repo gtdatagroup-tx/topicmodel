@@ -1,10 +1,9 @@
 FROM python:3.10-slim
 
-# Set working directory
 WORKDIR /app
 COPY . /app
 
-# Install build tools and libraries for numpy, bertopic, and sentence-transformers
+# Install system dependencies required by NLP packages
 RUN apt-get update && apt-get install -y \
     build-essential \
     git \
@@ -15,18 +14,14 @@ RUN apt-get update && apt-get install -y \
     libxext6 \
     && rm -rf /var/lib/apt/lists/*
 
-# Upgrade pip and install Python packages
-RUN pip install --no-cache-dir --upgrade pip
-RUN pip install --no-cache-dir \
-    numpy \
-    cython \
+# Upgrade pip and install necessary Python libraries explicitly
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir \
     flask \
+    numpy \
     scikit-learn \
     sentence-transformers \
     bertopic
 
-# Expose the app port
 EXPOSE 8000
-
-# Run the app
 CMD ["python", "app.py"]
