@@ -6,7 +6,11 @@
   "description": "Topic modeling API for legal deposition transcripts",
   "tagline": "AI for identifying subjects in legal utterances",
   "version": "1.0.0",
-  "port": 8000,
   "healthCheckPath": "/topic-modeling",
-  "httpPort": 8000
+  "tcpPorts": {
+    "http": {
+      "port": 8000,
+      "description": "HTTP interface"
+    }
+  }
 }
