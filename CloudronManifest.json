@@ -7,11 +7,5 @@
   "tagline": "AI for identifying subjects in legal utterances",
   "version": "1.0.0",
   "httpPort": 8000,
-  "healthCheckPath": "/topic-modeling",
-  "tcpPorts": {
-    "http": {
-      "port": 8000,
-      "description": "HTTP API"
-    }
-  }
+  "healthCheckPath": "/topic-modeling"
 }
