@@ -29,4 +29,4 @@ RUN pip install --default-timeout=100 --retries=10 --no-cache-dir bertopic
 EXPOSE 8000
 
 # Run the Flask app
-CMD ["python", "app.py"]
+CMD ["python3", "app.py"]
