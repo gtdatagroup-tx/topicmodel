@@ -3,7 +3,7 @@ from bertopic import BERTopic
 from sentence_transformers import SentenceTransformer
 
 app = Flask(__name__)
-embedding_model = SentenceTransformer("nlpaueb/legal-bert-base-uncased")
+embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 topic_model = BERTopic(embedding_model=embedding_model)
 
 @app.route("/topic-modeling", methods=["POST"])
