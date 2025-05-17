@@ -16,3 +16,5 @@ def model():
     topics, _ = topic_model.fit_transform(utterances)
     result = [topic_model.get_topic(topic)[0][0] for topic in topics]
     return jsonify({"topics": result})
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000)
