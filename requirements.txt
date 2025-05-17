@@ -1,0 +1,4 @@
+flask
+bertopic
+sentence-transformers
+scikit-learn
