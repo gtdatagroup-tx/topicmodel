@@ -4,7 +4,6 @@ from bertopic import BERTopic
 
 app = Flask(__name__)
 
-# Use a lightweight model for testing
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 topic_model = BERTopic(embedding_model=embedding_model)
 
@@ -14,11 +13,9 @@ def model():
         data = request.get_json(force=True)
         utterances = data.get("utterances", [])
 
-        # Validate input
         if not utterances or not isinstance(utterances, list):
             return jsonify({"error": "utterances must be a non-empty list."}), 400
 
-        # Clean and filter input
         utterances = [u.strip() for u in utterances if isinstance(u, str) and u.strip()]
         if not utterances:
             return jsonify({"error": "No valid utterances provided."}), 400
@@ -26,10 +23,9 @@ def model():
         topics, _ = topic_model.fit_transform(utterances)
         result = [topic_model.get_topic(topic)[0][0] for topic in topics]
         return jsonify({"topics": result})
-
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# 🔥 THIS IS ESSENTIAL
+# 🔥 Make sure this is at the VERY bottom
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000)
